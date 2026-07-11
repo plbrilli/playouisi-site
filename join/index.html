@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join a OuiSi Game</title>
+  <meta name="description" content="You've been invited to a OuiSi photo game.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0ebe1;
+      color: #454545;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .mark {
+      width: 84px; height: 84px;
+      background: #f7941e;
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+    .mark svg { width: 56px; height: 56px; }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+    p  { font-size: 16px; line-height: 1.5; color: #6b6b6b; max-width: 400px; margin-bottom: 12px; }
+    a.btn {
+      display: inline-block;
+      background: #454545; color: #fff;
+      text-decoration: none;
+      font-size: 16px; font-weight: 600;
+      padding: 14px 32px; border-radius: 14px;
+      margin-top: 16px;
+    }
+    .steps {
+      text-align: left; max-width: 400px;
+      background: #fff; border-radius: 16px;
+      padding: 20px 24px; margin-top: 24px;
+      font-size: 15px; line-height: 1.7; color: #6b6b6b;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+    .steps strong { color: #454545; }
+  </style>
+</head>
+<body>
+  <div class="mark">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="48" r="32" fill="none" stroke="#fff" stroke-width="7"/>
+      <circle cx="40" cy="60" r="17" fill="#fff"/>
+    </svg>
+  </div>
+  <h1>You're invited to a OuiSi game! 📸</h1>
+  <p id="subtitle">If OuiSi is installed, this page opens the app automatically.</p>
+  <a class="btn" id="openBtn" href="#" style="display:none">Open in OuiSi</a>
+  <div class="steps">
+    <strong>Don't have the app yet?</strong><br>
+    1. OuiSi is currently in private beta on TestFlight — ask your friend for a tester invite.<br>
+    2. Install OuiSi from the TestFlight invite.<br>
+    3. Come back and tap your invite link again — you'll drop right into the game.
+  </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var game = params.get("game");
+      if (game && /^[A-Fa-f0-9-]{8,40}$/.test(game)) {
+        var deepLink = "ouisi://join?game=" + encodeURIComponent(game);
+        var btn = document.getElementById("openBtn");
+        btn.href = deepLink;
+        btn.style.display = "inline-block";
+      } else {
+        document.getElementById("subtitle").textContent =
+          "Ask your friend to send you a fresh invite link from inside the app.";
+      }
+    })();
+  </script>
+</body>
+</html>
