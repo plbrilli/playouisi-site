@@ -73,6 +73,19 @@
         var btn = document.getElementById("openBtn");
         btn.href = deepLink;
         btn.style.display = "inline-block";
+        btn.addEventListener("click", function () {
+          // If the app opened, this page is backgrounded and the timer never
+          // fires. If we're still visible, the app isn't installed (or the
+          // in-Messages browser blocked it) — say so instead of staying silent.
+          setTimeout(function () {
+            if (document.visibilityState === "visible") {
+              document.getElementById("subtitle").innerHTML =
+                "Hmm — OuiSi didn't open. If it's installed, try opening this page in Safari " +
+                "(tap <strong>&hellip;</strong> below, then <strong>Open in Safari</strong>). " +
+                "If not, follow the steps below to get the app first.";
+            }
+          }, 1500);
+        });
       } else {
         document.getElementById("subtitle").textContent =
           "This link is missing its game code — it may not have copied over completely. Try tapping the original link in your messages.";
